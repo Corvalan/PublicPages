@@ -1,7 +1,8 @@
 [Home](https://Corvalan.github.io/PublicPages/) | [First Section](https://Corvalan.github.io/PublicPages/pages/first-section/) | [Second Section](https://Corvalan.github.io/PublicPages/pages/second-section/) | [Home](https://Corvalan.github.io/PublicPages/pages/home/)
 
 <div class="section-two-panel">
-  <div class="section-two-panel__sidebar" markdown="1">
+
+<div class="section-two-panel__sidebar" markdown="block">
 
 ## Second Section
 
@@ -12,40 +13,51 @@ asdfasdfsadf asdfasdf
 - [page X in second section](./page-x-in-second-section.html)
 - [Page Y in second section](./page-y-in-second-section.html)
 
-  </div>
+</div>
 
-  <div class="section-two-panel__content">
-    <iframe
-      id="section-page-frame"
-      class="section-two-panel__frame"
-      src=""
-      loading="lazy"
-    ></iframe>
-  </div>
+<div class="section-two-panel__content">
+  <iframe
+    id="section-page-frame"
+    class="section-two-panel__frame"
+    src=""
+    loading="lazy"
+  ></iframe>
+</div>
+
 </div>
 
 <style>
   .section-two-panel {
     display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
+    align-items: stretch;
+    justify-content: space-between;
+    min-height: 100vh; /* full viewport height */
+    gap: 0;
+  }
+
+  .section-two-panel__sidebar,
+  .section-two-panel__content {
+    flex: 0 0 50%;
+    max-width: 50%;
+    box-sizing: border-box;
+    padding-right: 1.5rem;
+  }
+
+  .section-two-panel__content {
+    padding-right: 0;
+    padding-left: 1.5rem;
+    border-left: 1px solid #e0e0e0;
   }
 
   .section-two-panel__sidebar {
-    flex: 0 0 260px;
-    max-width: 320px;
     font-size: 0.95rem;
+    overflow-y: auto;
   }
 
-  .section-two-panel__intro p:last-child {
-    margin-bottom: 0.75rem;
-  }
-
-  /* Sidebar lists (including the pages list) */
   .section-two-panel__sidebar ul {
     list-style: none;
     padding-left: 0;
-    margin: 0.5rem 0 0 0;
+    margin-top: 0.5rem;
   }
 
   .section-two-panel__sidebar li {
@@ -65,35 +77,37 @@ asdfasdfsadf asdfasdf
 
   .section-two-panel__sidebar a.is-active {
     font-weight: 600;
-    text-decoration: none;
     outline: 1px solid #ccc;
   }
 
-  .section-two-panel__content {
-    flex: 1 1 auto;
-    min-height: 60vh;
-  }
-
   .section-two-panel__frame {
+    display: block;
     width: 100%;
-    min-height: 70vh;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: #fff;
+    height: 100vh;        /* full viewport height */
+    border: none;
+    border-radius: 0;
   }
 
   @media (max-width: 900px) {
     .section-two-panel {
       flex-direction: column;
+      min-height: auto;
     }
 
-    .section-two-panel__sidebar {
-      max-width: none;
+    .section-two-panel__sidebar,
+    .section-two-panel__content {
+      max-width: 100%;
       flex: 1 1 auto;
+      padding: 0;
+      border-left: none;
+    }
+
+    .section-two-panel__content {
+      margin-top: 1rem;
     }
 
     .section-two-panel__frame {
-      min-height: 60vh;
+      height: 60vh;
     }
   }
 </style>
@@ -103,20 +117,13 @@ document.addEventListener('DOMContentLoaded', function () {
   var sidebar = document.querySelector('.section-two-panel__sidebar');
   if (!sidebar) return;
 
-  // Find links inside the sidebar
   var allLinks = Array.prototype.slice.call(
     sidebar.querySelectorAll('a[href]')
   );
 
-  // Only keep relative .html links (the section pages),
-  // ignore absolute https:// links from [Home](https://Corvalan.github.io/PublicPages/) | [First Section](https://Corvalan.github.io/PublicPages/pages/first-section/) | [Second Section](https://Corvalan.github.io/PublicPages/pages/second-section/) | [Home](https://Corvalan.github.io/PublicPages/pages/home/)
   var links = allLinks.filter(function (a) {
     var href = a.getAttribute('href') || '';
-    var isRelativeHtml =
-      !href.startsWith('http://') &&
-      !href.startsWith('https://') &&
-      href.endsWith('.html');
-    return isRelativeHtml;
+    return !href.startsWith('http') && href.endsWith('.html');
   });
 
   if (!links.length) return;
@@ -130,61 +137,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
     frame.setAttribute('src', href);
 
-    links.forEach(function (a) {
-      a.classList.remove('is-active');
-    });
+    links.forEach((a) => a.classList.remove('is-active'));
     link.classList.add('is-active');
 
-    if (pushHistory && window.history && window.history.pushState) {
-      try {
-        var url = new URL(window.location.href);
-        url.searchParams.set('page', href);
-        window.history.pushState({ page: href }, '', url.toString());
-      } catch (e) {
-        // Ignore URL issues in older browsers
-      }
+    if (pushHistory && history.pushState) {
+      var u = new URL(window.location.href);
+      u.searchParams.set('page', href);
+      history.pushState({ page: href }, '', u.toString());
     }
   }
 
-  // Intercept clicks on page links
-  links.forEach(function (link) {
-    link.addEventListener('click', function (evt) {
-      evt.preventDefault();
-      openLink(link, true);
-    });
-  });
+  links.forEach((l) =>
+    l.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLink(l, true);
+    })
+  );
 
-  // Initial selection: from ?page= param, otherwise first link
-  var initialLink = null;
+  var initial = null;
   try {
     var params = new URLSearchParams(window.location.search || '');
-    var initialHref = params.get('page');
-    if (initialHref) {
-      initialLink = links.find(function (l) {
-        return l.getAttribute('href') === initialHref;
-      }) || null;
+    var ph = params.get('page');
+    if (ph) {
+      initial = links.find((l) => l.getAttribute('href') === ph) || null;
     }
-  } catch (e) {
-    // ignore
-  }
+  } catch (e) {}
 
-  if (!initialLink) {
-    initialLink = links[0] || null;
-  }
-  if (initialLink) {
-    openLink(initialLink, false);
-  }
+  if (!initial) initial = links[0];
+  if (initial) openLink(initial, false);
 
-  // Handle back/forward navigation
-  window.addEventListener('popstate', function (event) {
-    var href = event.state && event.state.page;
+  window.addEventListener('popstate', (ev) => {
+    var href = ev.state && ev.state.page;
     if (!href) return;
-    var link = links.find(function (l) {
-      return l.getAttribute('href') === href;
-    }) || null;
-    if (link) {
-      openLink(link, false);
-    }
+    var link = links.find((l) => l.getAttribute('href') === href) || null;
+    if (link) openLink(link, false);
   });
 });
 </script>
