@@ -12,6 +12,7 @@ test dd
 
     <h3>Pages</h3>
 - [page A in first section hello](./page-A-in-first-sect.html)
+- [page B in first section](./page-b-in-first-section.html)
   </aside>
 
   <main class="section-two-panel__content">
