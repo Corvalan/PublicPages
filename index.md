@@ -6,5 +6,5 @@ title: PublicPages
 
 Below is an auto-generated list of all sections under `/pages/`:
 
-- [First Section](/pages/first-section/)
+- [First Section](pages/first-section/)
 
