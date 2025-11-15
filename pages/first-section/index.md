@@ -29,14 +29,29 @@ test dd
 <style>
   .section-two-panel {
     display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
+    align-items: stretch;
+    justify-content: space-between;
+    min-height: 100vh; /* full viewport height */
+    gap: 0;
+  }
+
+  .section-two-panel__sidebar,
+  .section-two-panel__content {
+    flex: 0 0 50%;
+    max-width: 50%;
+    box-sizing: border-box;
+    padding-right: 1.5rem;
+  }
+
+  .section-two-panel__content {
+    padding-right: 0;
+    padding-left: 1.5rem;
+    border-left: 1px solid #e0e0e0;
   }
 
   .section-two-panel__sidebar {
-    flex: 0 0 260px;
-    max-width: 320px;
     font-size: 0.95rem;
+    overflow-y: auto;
   }
 
   .section-two-panel__sidebar ul {
@@ -66,10 +81,34 @@ test dd
   }
 
   .section-two-panel__frame {
+    display: block;
     width: 100%;
-    min-height: 70vh;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    height: 100vh;        /* full viewport height */
+    border: none;
+    border-radius: 0;
+  }
+
+  @media (max-width: 900px) {
+    .section-two-panel {
+      flex-direction: column;
+      min-height: auto;
+    }
+
+    .section-two-panel__sidebar,
+    .section-two-panel__content {
+      max-width: 100%;
+      flex: 1 1 auto;
+      padding: 0;
+      border-left: none;
+    }
+
+    .section-two-panel__content {
+      margin-top: 1rem;
+    }
+
+    .section-two-panel__frame {
+      height: 60vh;
+    }
   }
 </style>
 
@@ -116,16 +155,21 @@ document.addEventListener('DOMContentLoaded', function () {
   );
 
   var initial = null;
-  var params = new URLSearchParams(window.location.search);
-  var ph = params.get('page');
-  if (ph) initial = links.find((l) => l.getAttribute('href') === ph);
+  try {
+    var params = new URLSearchParams(window.location.search || '');
+    var ph = params.get('page');
+    if (ph) {
+      initial = links.find((l) => l.getAttribute('href') === ph) || null;
+    }
+  } catch (e) {}
 
   if (!initial) initial = links[0];
   if (initial) openLink(initial, false);
 
   window.addEventListener('popstate', (ev) => {
     var href = ev.state && ev.state.page;
-    var link = links.find((l) => l.getAttribute('href') === href);
+    if (!href) return;
+    var link = links.find((l) => l.getAttribute('href') === href) || null;
     if (link) openLink(link, false);
   });
 });
