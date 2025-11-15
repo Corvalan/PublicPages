@@ -1,7 +1,5 @@
-## [Second Section](./index.html)
+## Second Section
 
 ### Page Y in second section
-
----
 
 asd fasdf asdf asdf
