@@ -188,6 +188,7 @@ a {
 }
 a:hover {
   text-decoration: underline;
+  color: red;
 }
 
 /* Active link style used in your section/page lists */
