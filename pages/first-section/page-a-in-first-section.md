@@ -1,6 +1,6 @@
 ## [First Section](./index.html)
 
-## page A in first section
+### page A in first section
 
 ---
 
