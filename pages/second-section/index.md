@@ -5,5 +5,6 @@ asdfasdfsadf asdfasdf
 
 ---
 
-- [page B in second section](./page-b-in-second-section.html)
+- [page X in second section](./page-x-in-second-section.html)
+- [Page Y in second section](./page-y-in-second-section.html)
 
