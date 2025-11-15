@@ -1,0 +1,13 @@
+## Page A in first section
+
+asdf asdf asdf asdf asdf asdf asdf 
+
+asdf dASDAfdaas dfasdf 
+
+asdfasdf
+
+asdfasdf asdf asdf 
+
+sadf
+
+TESTING IF THE TEMPLATES IS APPLIED
