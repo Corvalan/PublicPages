@@ -1,23 +1,25 @@
 [Home](https://Corvalan.github.io/PublicPages/) | [First Section](https://Corvalan.github.io/PublicPages/pages/first-section/) | [Second Section](https://Corvalan.github.io/PublicPages/pages/second-section/) | [Home](https://Corvalan.github.io/PublicPages/pages/home/)
 
-<div class="layout-two-panel">
-  <aside class="layout-two-panel__sidebar">
+<div class="section-two-panel">
+  <aside class="section-two-panel__sidebar">
     <h2>First Section</h2>
 
-    <div class="layout-two-panel__intro">
+    <div class="section-two-panel__intro">
 test dd
     </div>
 
+    <hr />
+
     <h3>Pages</h3>
-    <div id="section-pages" class="layout-two-panel__pages">
+    <div id="section-pages" class="section-two-panel__pages">
 - [page A in first section hello](./page-A-in-first-sect.html)
     </div>
   </aside>
 
-  <main class="layout-two-panel__content">
+  <main class="section-two-panel__content">
     <iframe
       id="section-page-frame"
-      class="layout-two-panel__frame"
+      class="section-two-panel__frame"
       src=""
       loading="lazy"
     ></iframe>
@@ -25,55 +27,55 @@ test dd
 </div>
 
 <style>
-  .layout-two-panel {
+  .section-two-panel {
     display: flex;
     align-items: flex-start;
     gap: 1.5rem;
   }
 
-  .layout-two-panel__sidebar {
+  .section-two-panel__sidebar {
     flex: 0 0 260px;
     max-width: 320px;
     font-size: 0.95rem;
   }
 
-  .layout-two-panel__intro p:last-child {
+  .section-two-panel__intro p:last-child {
     margin-bottom: 0.75rem;
   }
 
-  .layout-two-panel__pages ul {
+  .section-two-panel__pages ul {
     list-style: none;
     padding-left: 0;
     margin: 0.5rem 0 0 0;
   }
 
-  .layout-two-panel__pages li {
+  .section-two-panel__pages li {
     margin: 0.15rem 0;
   }
 
-  .layout-two-panel__pages a {
+  .section-two-panel__pages a {
     text-decoration: none;
     display: block;
     padding: 0.15rem 0.25rem;
     border-radius: 4px;
   }
 
-  .layout-two-panel__pages a:hover {
+  .section-two-panel__pages a:hover {
     text-decoration: underline;
   }
 
-  .layout-two-panel__pages a.is-active {
+  .section-two-panel__pages a.is-active {
     font-weight: 600;
     text-decoration: none;
     outline: 1px solid #ccc;
   }
 
-  .layout-two-panel__content {
+  .section-two-panel__content {
     flex: 1 1 auto;
     min-height: 60vh;
   }
 
-  .layout-two-panel__frame {
+  .section-two-panel__frame {
     width: 100%;
     min-height: 70vh;
     border: 1px solid #ddd;
@@ -82,16 +84,16 @@ test dd
   }
 
   @media (max-width: 900px) {
-    .layout-two-panel {
+    .section-two-panel {
       flex-direction: column;
     }
 
-    .layout-two-panel__sidebar {
+    .section-two-panel__sidebar {
       max-width: none;
       flex: 1 1 auto;
     }
 
-    .layout-two-panel__frame {
+    .section-two-panel__frame {
       min-height: 60vh;
     }
   }
@@ -122,9 +124,13 @@ document.addEventListener('DOMContentLoaded', function () {
     link.classList.add('is-active');
 
     if (pushHistory && window.history && window.history.pushState) {
-      var url = new URL(window.location.href);
-      url.searchParams.set('page', href);
-      window.history.pushState({ page: href }, '', url.toString());
+      try {
+        var url = new URL(window.location.href);
+        url.searchParams.set('page', href);
+        window.history.pushState({ page: href }, '', url.toString());
+      } catch (e) {
+        // ignore URL issues in older browsers
+      }
     }
   }
 
