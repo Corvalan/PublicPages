@@ -10,8 +10,8 @@ This is the body text of the Section. Lorem Psum asdfasdf
 
 ### Pages
 
-- [page A in first section hello](./page-A-in-first-sect.html)
-- [page B in first section](./page-b-in-first-section.html)
+- [Page A in first section](./Page-A-in-first-sect.html)
+- [Page B in first section](./Page-B-in-first-sect.html)
 
 </div>
 
