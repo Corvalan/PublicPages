@@ -9,3 +9,5 @@ asdfasdf
 asdfasdf asdf asdf 
 
 sadf
+
+TESTING IF THE TEMPLATES IS APPLIED
