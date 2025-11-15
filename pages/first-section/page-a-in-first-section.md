@@ -1,4 +1,4 @@
-## [First Section](./index.html)
+## First Section
 
 ### page A in first section
 
