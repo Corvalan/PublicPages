@@ -1,28 +1,27 @@
 [Home](https://Corvalan.github.io/PublicPages/) | [First Section](https://Corvalan.github.io/PublicPages/pages/first-section/) | [Second Section](https://Corvalan.github.io/PublicPages/pages/second-section/) | [Home](https://Corvalan.github.io/PublicPages/pages/home/)
 
 <div class="section-two-panel">
-  <aside class="section-two-panel__sidebar">
-    <h2>Second Section</h2>
+  <div class="section-two-panel__sidebar" markdown="1">
 
-    <div class="section-two-panel__intro">
+## Second Section
+
 asdfasdfsadf asdfasdf
-    </div>
 
-    <hr />
+### Pages
 
-    <h3>Pages</h3>
 - [page X in second section](./page-x-in-second-section.html)
 - [Page Y in second section](./page-y-in-second-section.html)
-  </aside>
 
-  <main class="section-two-panel__content">
+  </div>
+
+  <div class="section-two-panel__content">
     <iframe
       id="section-page-frame"
       class="section-two-panel__frame"
       src=""
       loading="lazy"
     ></iframe>
-  </main>
+  </div>
 </div>
 
 <style>
@@ -42,29 +41,29 @@ asdfasdfsadf asdfasdf
     margin-bottom: 0.75rem;
   }
 
-  /* Style any list that immediately follows the "Pages" heading */
-  .section-two-panel__sidebar h3 + ul {
+  /* Sidebar lists (including the pages list) */
+  .section-two-panel__sidebar ul {
     list-style: none;
     padding-left: 0;
     margin: 0.5rem 0 0 0;
   }
 
-  .section-two-panel__sidebar h3 + ul li {
+  .section-two-panel__sidebar li {
     margin: 0.15rem 0;
   }
 
-  .section-two-panel__sidebar h3 + ul a {
+  .section-two-panel__sidebar a {
     text-decoration: none;
     display: block;
     padding: 0.15rem 0.25rem;
     border-radius: 4px;
   }
 
-  .section-two-panel__sidebar h3 + ul a:hover {
+  .section-two-panel__sidebar a:hover {
     text-decoration: underline;
   }
 
-  .section-two-panel__sidebar h3 + ul a.is-active {
+  .section-two-panel__sidebar a.is-active {
     font-weight: 600;
     text-decoration: none;
     outline: 1px solid #ccc;
@@ -104,15 +103,15 @@ document.addEventListener('DOMContentLoaded', function () {
   var sidebar = document.querySelector('.section-two-panel__sidebar');
   if (!sidebar) return;
 
-  // Collect only relative .html links inside the sidebar (page links),
-  // ignoring absolute https:// links from [Home](https://Corvalan.github.io/PublicPages/) | [First Section](https://Corvalan.github.io/PublicPages/pages/first-section/) | [Second Section](https://Corvalan.github.io/PublicPages/pages/second-section/) | [Home](https://Corvalan.github.io/PublicPages/pages/home/)
+  // Find links inside the sidebar
   var allLinks = Array.prototype.slice.call(
     sidebar.querySelectorAll('a[href]')
   );
 
+  // Only keep relative .html links (the section pages),
+  // ignore absolute https:// links from [Home](https://Corvalan.github.io/PublicPages/) | [First Section](https://Corvalan.github.io/PublicPages/pages/first-section/) | [Second Section](https://Corvalan.github.io/PublicPages/pages/second-section/) | [Home](https://Corvalan.github.io/PublicPages/pages/home/)
   var links = allLinks.filter(function (a) {
     var href = a.getAttribute('href') || '';
-    // Treat "./slug.html" or "slug.html" as page links
     var isRelativeHtml =
       !href.startsWith('http://') &&
       !href.startsWith('https://') &&
@@ -142,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
         url.searchParams.set('page', href);
         window.history.pushState({ page: href }, '', url.toString());
       } catch (e) {
-        // ignore URL issues in older browsers
+        // Ignore URL issues in older browsers
       }
     }
   }
