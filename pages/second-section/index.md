@@ -11,10 +11,8 @@ asdfasdfsadf asdfasdf
     <hr />
 
     <h3>Pages</h3>
-    <div id="section-pages" class="section-two-panel__pages">
 - [page X in second section](./page-x-in-second-section.html)
 - [Page Y in second section](./page-y-in-second-section.html)
-    </div>
   </aside>
 
   <main class="section-two-panel__content">
@@ -44,28 +42,29 @@ asdfasdfsadf asdfasdf
     margin-bottom: 0.75rem;
   }
 
-  .section-two-panel__pages ul {
+  /* Style any list that immediately follows the "Pages" heading */
+  .section-two-panel__sidebar h3 + ul {
     list-style: none;
     padding-left: 0;
     margin: 0.5rem 0 0 0;
   }
 
-  .section-two-panel__pages li {
+  .section-two-panel__sidebar h3 + ul li {
     margin: 0.15rem 0;
   }
 
-  .section-two-panel__pages a {
+  .section-two-panel__sidebar h3 + ul a {
     text-decoration: none;
     display: block;
     padding: 0.15rem 0.25rem;
     border-radius: 4px;
   }
 
-  .section-two-panel__pages a:hover {
+  .section-two-panel__sidebar h3 + ul a:hover {
     text-decoration: underline;
   }
 
-  .section-two-panel__pages a.is-active {
+  .section-two-panel__sidebar h3 + ul a.is-active {
     font-weight: 600;
     text-decoration: none;
     outline: 1px solid #ccc;
@@ -102,12 +101,25 @@ asdfasdfsadf asdfasdf
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  var pagesContainer = document.getElementById('section-pages');
-  if (!pagesContainer) return;
+  var sidebar = document.querySelector('.section-two-panel__sidebar');
+  if (!sidebar) return;
 
-  var links = Array.prototype.slice.call(
-    pagesContainer.querySelectorAll('a[href]')
+  // Collect only relative .html links inside the sidebar (page links),
+  // ignoring absolute https:// links from [Home](https://Corvalan.github.io/PublicPages/) | [First Section](https://Corvalan.github.io/PublicPages/pages/first-section/) | [Second Section](https://Corvalan.github.io/PublicPages/pages/second-section/) | [Home](https://Corvalan.github.io/PublicPages/pages/home/)
+  var allLinks = Array.prototype.slice.call(
+    sidebar.querySelectorAll('a[href]')
   );
+
+  var links = allLinks.filter(function (a) {
+    var href = a.getAttribute('href') || '';
+    // Treat "./slug.html" or "slug.html" as page links
+    var isRelativeHtml =
+      !href.startsWith('http://') &&
+      !href.startsWith('https://') &&
+      href.endsWith('.html');
+    return isRelativeHtml;
+  });
+
   if (!links.length) return;
 
   var frame = document.getElementById('section-page-frame');
