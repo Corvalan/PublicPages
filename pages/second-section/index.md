@@ -77,7 +77,6 @@ This is the body text of the Section. Lorem Psum asdfasdf
 
   .section-two-panel__sidebar a.is-active {
     font-weight: 600;
-    outline: 1px solid #ccc;
   }
 
   .section-two-panel__frame {
