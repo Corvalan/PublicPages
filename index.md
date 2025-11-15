@@ -1,5 +1,6 @@
 ---
-title: PublicPages
+title: Public pages
+layout: default
 ---
 
 # Public pages
@@ -7,13 +8,13 @@ title: PublicPages
 Below is an auto-generated list of all pages under `/pages/`:
 
 <ul>
-{% raw %}{% for p in site.pages %}{% endraw %}
-  {% raw %}{% if p.path contains 'pages/' %}{% endraw %}
+{% for p in site.pages %}
+  {% if p.path contains 'pages/' %}
     <li>
-      <a href="{% raw %}{{ p.url | relative_url }}{% endraw %}">
-        {% raw %}{{ p.title | default: p.name }}{% endraw %}
+      <a href="{{ p.url | relative_url }}">
+        {{ p.title | default: p.name }}
       </a>
     </li>
-  {% raw %}{% endif %}{% endraw %}
-{% raw %}{% endfor %}{% endraw %}
+  {% endif %}
+{% endfor %}
 </ul>
