@@ -6,7 +6,7 @@
 
 ## Second Section
 
-asdfasdfsadf asdfasdf
+This is the body text of the Section. Lorem Psum asdfasdf
 
 ### Pages
 
