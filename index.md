@@ -1,20 +1,10 @@
 ---
-title: Public pages
-layout: default
+title: PublicPages
 ---
 
-# Public pages
+# PublicPages
 
-Below is an auto-generated list of all pages under `/pages/`:
+Below is an auto-generated list of all sections under `/pages/`:
 
-<ul>
-{% for p in site.pages %}
-  {% if p.path contains 'pages/' %}
-    <li>
-      <a href="{{ p.url | relative_url }}">
-        {{ p.title | default: p.name }}
-      </a>
-    </li>
-  {% endif %}
-{% endfor %}
-</ul>
+- [First Section](/pages/first-section/)
+
