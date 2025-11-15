@@ -13,7 +13,6 @@ Sections:
 [[home_body]]
 
 <style>
-```
 /* Global site tweaks */
 
 body {
@@ -40,6 +39,4 @@ a:hover {
 p:first-of-type a {
   margin-right: 0.25rem;
 }
-
-```
 </style>
