@@ -1,6 +1,6 @@
-# page A in first section
+## [First Section](./index.html)
 
-[← Back to First Section](./index.html)
+## page A in first section
 
 ---
 
