@@ -2,8 +2,6 @@
 
 ### page A in first section
 
----
-
 asdf asdf asdf asdf asdf asdf asdf 
 
 asdf dASDAfdaas dfasdf 
