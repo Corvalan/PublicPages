@@ -1,14 +1,14 @@
 <link rel="stylesheet" href="/PublicPages/assets/publicpages.css">
 
-[Home](https://Corvalan.github.io/PublicPages/) | [First Section](https://Corvalan.github.io/PublicPages/pages/first-section/) | [Second Section](https://Corvalan.github.io/PublicPages/pages/second-section/)
+[Home](https://Corvalan.github.io/PublicPages/) | [Test section 1](https://Corvalan.github.io/PublicPages/pages/test-section-1/) | [test section 2](https://Corvalan.github.io/PublicPages/pages/test-section-2/)
 
 
-Welcome to PublicPages at https://Corvalan.github.io/PublicPages/
+Welcome to Testclone at https://Corvalan.github.io/PublicPages/
 
 Sections:
 
-- [First Section](pages/first-section/)
-- [Second Section](pages/second-section/)
+- [Test section 1](pages/test-section-1/)
+- [test section 2](pages/test-section-2/)
 
 ---
 
